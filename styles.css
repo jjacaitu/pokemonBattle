@@ -180,7 +180,7 @@ a {
 
 .choosePokemon {
     background-color: rgb(173, 173, 173);
-    background-image: url(./pokeballBackground.jpg);
+    background-image: url(./assets/pokeballBackground.jpg);
     background-position: center;
     background-size: cover;
     justify-content: center;
@@ -280,7 +280,7 @@ a {
     flex-direction: column;
     width: 100%;
     min-height: 480px;
-    background-image: url(./PokemonBattleBackground.png);
+    background-image: url(./assets/PokemonBattleBackground.png);
     background-size: 100% 100%;
     position: relative;
     
@@ -383,7 +383,7 @@ main {
 
 body {
     /* background-color: #FFCB05; */
-    background-image: url(./backgroundBlack.png);
+    background-image: url(./assets/backgroundBlack.png);
     background-size: contain;
 }
 
