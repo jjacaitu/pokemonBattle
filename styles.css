@@ -689,6 +689,14 @@ body {
         font-size: 0.5rem;
     }
 
+    .change {
+        padding: 20px 0px;
+    }
+
+    .moveButton {
+        padding: 5px 5px;
+    }
+
     .introduction {
         font-size: 0.8rem;
     }
