@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/d6f0115eb5.js" crossorigin="anonymous"></script> 
+    <title>Pokemon</title>
+</head>
+<body>
+    
+    <main>
+        <div class="intro">
+            <img class="logo" src="./logo.png" alt="Pokemon logo">
+            <div class="introduction">
+                <p>Battle a pokemon master in one of the 3 difficulty levels. <span>At the start of the game you and your opponent will recieve random pokemons with random moves(each pokemon will only have moves that would be possible for that pokemon to learn). There are no levels in the pokemons that each of you recieve, just the base stats of each one and types. Types, power, and stats are used to calculate the damage on each move used.</span>The first trainer to run out of pokemons lose! If you are good enough to win then you will become the new Pokemon Master!</p>
+                <form action="">
+                    <div class="difficulty_div">
+                        <label for="easy">Easy</label>
+                        <input type="radio" name="difficulty" id="" value="0.7">
+                        <label for="medium">Normal</label>
+                        <input type="radio" name="difficulty" id="" value="1" checked>
+                        <label for="hard">Hard</label>
+                        <input type="radio" name="difficulty" id="" value="1.3">
+                        <label for="extremelyHard">Extremely Hard</label>
+                        <input type="radio" name="difficulty" id="" value="1.6">
+                    </div>
+                    
+                    <div class="length_div">
+                        <label for="2vs2">2 vs 2</label>
+                        <input type="radio" name="length" id="" value="2">
+                        <label for="4vs4">4 vs 4</label>
+                        <input type="radio" name="length" id="" value="4" checked>
+                        <label for="6vs6">6 vs 6</label>
+                        <input type="radio" name="length" id="" value="6">
+                    </div>
+        
+                    <input class="start" type="submit" value="START">
+                    
+                </form>
+            </div>
+            <footer>
+                    <p>Information, names, stats and images of pokemons provided by <a href="https://pokeapi.co/" target="_blank">Pokeapi</a></p>
+            </footer>
+            
+            
+            
+
+        </div>
+        <div class="loading">
+            <div>
+                <img class="pokeballMove"src="./pokeball-icon-transparent-20.jpg" alt="">
+                <h2>Selecting Pokemons...</h2>
+                <img class="pokeballMove"src="./pokeball-icon-transparent-20.jpg" alt="">     
+            </div>
+            
+        </div>
+        <div class="gameBoard">
+            <div class="activePokemon">
+                <div class="choosePokemon">
+                    <div class="chooseTitle">
+                            <img class="pokeballMove"src="./pokeball-icon-transparent-20.jpg" alt="">
+                        <h2>Choose your POKEMON!</h2>
+                        <img class="pokeballMove"src="./pokeball-icon-transparent-20.jpg" alt="">
+                        <i class="fas fa-times cancel"></i>
+                        
+                    </div>  
+                    <div class="pokemonButtonsDiv">
+                            
+                    </div>   
+                </div>
+                <div class="computerPokemon">
+                    <div class="cpusPokemonInfo">
+                        <div class="nameInfo">
+                                <p class="name"></p>
+                        </div>
+    
+                        <div class="healthBar">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="playersPokemon">
+                    <div class="playersPokemonInfo">
+                        <div class="nameInfo">
+                                <p class="name"></p>
+                        </div>
+                        <div class="healthBar"></div>
+                        
+                    </div>
+                </div>
+                <div class="alerts">
+                    <p></p>
+                </div>
+                <div class="final_message">
+                    <p></p>
+                    <button class="reload"></button>
+                </div>
+            </div>
+            <div class="options">
+                <div class="moves"> 
+                </div>
+                <div class="other">   
+                </div>
+            </div>
+            
+        </div>
+        
+    </main>
+    
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="./script.js"></script>
+</html>
