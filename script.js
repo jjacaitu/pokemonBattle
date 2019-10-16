@@ -159,6 +159,11 @@ pokemonApp.getPokemonMovesInfo = async function (pokemonGroup,movesToCheck,url,p
                         $(".start").fadeOut();
                     })
 
+                    if(pokemonApp.checkUndefined()){
+                        alert("It seems all the pokemon are either recovering or in battle, please reload the page and try again!");
+                        location.reload();
+                    }
+
                     $(".gameBoard").fadeIn(); 
                 }, 2000);
             }
@@ -247,7 +252,7 @@ pokemonApp.choosePokemonClick = $(".choosePokemon").on("click",".pokemonButton",
 
     pokemonChosen.selectedMoves.forEach((move,index)=>{
         if(move.pp > 0){
-            $(".moves").append(`<button class="moveButton moveButton_${move.name}" value="${index}"><p>${move.name.toUpperCase()}</p><p>TYPE: ${move.type.toUpperCase()}<div><p class="pp"> PP:${move.pp}</p><p> POWER:${move.power}</p></div></button>`);
+            $(".moves").append(`<button class="moveButton moveButton_${move.name}" value="${index}"><p class="moveName">${move.name.toUpperCase()}</p><p>TYPE: ${move.type.toUpperCase()}<div><p class="pp"> PP:${move.pp}</p><p> POWER:${move.power}</p></div></button>`);
         }else{
             $(".moves").append(`<button class="disabledButton moveButton_${move.name}" value="${index}" disabled><p>${move.name.toUpperCase()}</p><p>TYPE: ${move.type.toUpperCase()}<div><p class="pp"> PP:${move.pp}</p><p> POWER:${move.power}</p></div></button>`);
         }
@@ -714,6 +719,19 @@ pokemonApp.playerPokeballAnimation = () => {
 
     
 
+}
+
+pokemonApp.checkUndefined = () => {
+    pokemonApp.vsPokemons.forEach((pokemon)=>{
+        if(pokemon.name === undefined){
+            return true;
+        }
+    });
+    pokemonApp.playerPokemons.forEach((pokemon)=>{
+        if(pokemon.name === undefined){
+            return true;
+        }
+    })
 }
 
 pokemonApp.cpuPokeballAnimation = () => {
