@@ -1,0 +1,515 @@
+body, button, input {
+    font-family: 'Press Start 2P', cursive;
+}
+
+p {
+    margin: 0;
+}
+
+img {
+    
+    height: auto;
+    display: block;
+}
+
+body {
+    background-image: url(../assets/backgroundBlack.png);
+    background-size: contain;
+
+    main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.loading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #FFCB05;
+    
+    div {
+        display: flex;
+        flex-direction: column;
+        animation: linear infinite light 3s;
+        text-align: center;
+        align-items: center;
+
+        img {
+            
+            max-width: 200px;
+            margin: 0 20px;
+            
+        }
+    }
+}
+
+
+
+button, input[type="submit"] {
+    padding: 10px 20px;
+}
+
+input {
+    margin: 10px 10px;
+}
+
+
+
+button:hover, input[type="submit"]:hover {
+    cursor: pointer;
+}
+
+
+
+
+.intro {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 100vh;
+    background-image: linear-gradient(to top, rgb(211, 208, 58),rgb(255, 234, 0));
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgb(78, 71, 71);
+    background-position: -50%;
+    animation: bg-pan-right 8s infinite;
+
+    img {
+        min-width: 100px;
+    }
+
+
+    .logo {
+        max-width: 800px;
+        width: 40%;
+        animation: slide-in-elliptic-top-fwd  1 forwards ease-in 1s;
+    }
+
+    .introduction{
+        width: 80%;
+        text-align: center;
+        
+        animation: text-focus-in  1.5s cubic-bezier(0.215, 0.610, 0.355, 1.000) 1s both;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+
+        
+
+        p {
+            width: 80%;
+            
+        }
+
+        form {
+            text-align: center;
+            margin-top: 20px;
+
+            label{
+                color: rgb(34, 33, 28);
+            }
+        }
+
+        .start {
+            margin-top: 20px;
+            animation: jello-horizontal 1.5s both 2.5s;
+            background-color: white;
+        }
+    }
+
+    footer {
+        text-align: center;
+        color: #4172A8;
+        padding: 10px;
+        font-size: 0.8rem;
+
+        a {
+            color: #ED0E0E;
+            text-decoration: none;
+        }
+        
+    }
+
+}
+
+.gameBoard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: 60%;
+    border: solid 20px black;
+    margin: 20px;
+    box-shadow: #FFCB05 30px 30px 0px;
+    display: none;
+    border-radius: 20px;
+
+    & .lightning {
+        animation: light 1 1.5s linear;
+    }
+
+    .activePokemon {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        min-height: 480px;
+        background-image: url(../assets/PokemonBattleBackground.png);
+        background-size: 100% 100%;
+        position: relative;
+
+        
+
+        .choosePokemon{
+            position: absolute;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            background-color: rgb(173, 173, 173);
+            background-image: url(../assets/pokeballBackground.jpg);
+            background-position: center;
+            background-size: cover;
+            justify-content: space-around;
+            align-items: center;
+            
+            border-radius: 20px;
+            padding: 40px;
+            color: rgb(255, 255, 255);
+            border: solid #ED0E0E 10px;
+            z-index: 1;
+            min-height: 600px;
+            box-shadow: 0 0 0 20px black;
+
+            
+
+            .chooseTitle {
+                background-color: black;
+                padding: 10px;
+                border-radius: 20px;
+                text-align: center;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .pokeballMove {
+                    animation: pokeballMove infinite alternate 0.5s;
+                    max-height: 50px;
+                    max-width: 50px;
+                    margin: 0 20px;
+                    
+                }
+
+                .cancel{
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    font-size: 2rem;
+                    display: none;
+                    transition: all 0.5s;
+
+                    &:hover {
+                        transform: scale(1.3);
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .pokemonButtonsDiv {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+
+                
+                
+                .pokemonButton {
+                    width: calc(30% - 20px);
+                   background-color: rgba(253, 253, 253, 0.575);
+                    border-radius: 20px;
+                    margin: 10px;
+                    max-width: 200px;
+                    min-width: 100px;
+                    flex-grow: 1;
+
+                    &.active {
+                        transition: all 0.5s;
+
+                        &:hover img{
+            
+                            cursor: pointer;
+                            transform: scale(1.3);
+                        }
+                     }
+
+                    img {
+                        width: 100%;
+                        transition: all 0.6s;
+                    }
+
+                    &.faint {
+                        opacity: 0.5;
+                    }
+
+                    
+                
+                }
+            }
+           
+            
+        }
+
+        .playersPokemon, .computerPokemon {
+            flex-grow: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5%;
+            position: relative;
+
+            
+    
+            
+    
+            .cpusPokemonInfo, .playersPokemonInfo {
+                padding: 10px;
+                background-color: antiquewhite;
+                border-radius: 20px 5px 20px 5px;
+                width: 40%;
+                margin: 0 10px;
+                display: none;
+    
+                .healthBar {
+                    width: 95%;
+                    height: 10px;
+                    transition: all 0.5s;
+                    border-radius: 20px;
+                }
+                
+                .nameInfo {
+                    display: flex;
+                }
+            }
+        }
+    
+        .playersPokemon {
+    
+            .playerBattlingPokemon {
+                animation: moving infinite 1s alternate;
+                margin-left: 15%;
+                height: 200%;
+                max-width: 200px;
+                max-height: 200px;
+
+                &.hitted {
+                    animation: hit 1 linear 1s;
+                }
+        
+                &.attacking {
+                    animation: attack 1 linear 1s;
+                }
+        
+                &.fainted {
+                    animation: fainted forwards 1s linear;
+                }
+
+                
+                
+                
+            }
+        }
+    
+        .computerPokemon {
+    
+            .cpuBattlingPokemon {
+                animation: moving infinite 1.5s alternate ;
+                margin: 20% 15% 0 0;
+                min-width: 150px;
+
+                &.hitted {
+                    animation: hit 1 linear 1s;
+                }
+        
+                &.attacking {
+                    animation: attack 1 linear 1s;
+                }
+        
+                &.fainted {
+                    animation: fainted forwards 1s linear;
+                }
+            }
+    
+    
+        }
+
+        
+    }
+
+    .options {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .moves {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+
+            .moveButton {
+                background-color: white;
+                color: black;
+                border: none;
+                margin: 5px;
+                transition: all 0.5s;
+
+                .moveName {
+                    color: #4172A8;
+                }
+
+                div{
+                    display: flex;
+                    justify-content: space-between;
+                }
+            
+                &:hover, .moveButton:focus {
+                    box-shadow: 0 0 0 5px rgb(197, 26, 26);
+                }
+            }
+            
+            .moveButton, .disabledButton {
+                width: calc(50% - 10px);
+            }
+            
+            
+            
+            
+        }
+
+        .other {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            width: 100%;
+
+            .change {
+                width: 100%;
+            }
+            
+        }
+
+        
+    }
+
+    
+
+    .alerts {
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
+        height: 20%;
+        background-color: rgb(48, 192, 149);
+        border-color: rgb(173, 42, 42);
+        border-width: 5px 10px 5px 10px;
+        border-style: solid;
+        border-radius: 20px;
+        padding: 30px;
+        display: none;
+
+        p{
+            color: white;
+        }
+    
+    }
+
+    .final_message {
+    
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        width: 70%;
+        padding: 80px 20px;
+        background-color: #FFCB05;
+        border: solid black 10px;
+        border-radius: 20px;
+        display: none;
+
+        .reload {
+            margin-top: 20px;
+        }
+    }
+    
+    
+    
+}
+
+.playerPokeballAnimation {
+    position: absolute;
+    animation: pokeball 1s linear 1;
+
+}
+
+.cpuPokeballAnimation {
+    position: absolute;
+    animation: pokeballCpu 1s linear 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

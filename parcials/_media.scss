@@ -1,0 +1,187 @@
+@media (max-width: 800px){
+    .gameBoard {
+        width: 80%;
+    }
+}
+
+@media (max-width: 500px){
+
+  button, body {
+    font-size: 0.5rem;
+  }
+
+
+  .intro {
+    
+
+
+    .logo {
+        width: 80%;
+    }
+
+    .introduction{
+        font-size: 0.8rem;
+        
+        p {
+            width: 100%;
+        }
+
+        span {
+            display: none;
+        }
+
+        form {
+            
+
+            input[type=radio] {
+                margin: 10px 0px;
+            }
+        }
+
+        .start {
+            margin-top: 20px;
+            animation: jello-horizontal 1.5s both 2.5s;
+        }
+    }
+
+    footer {
+        
+        font-size: 0.5rem;
+        
+    }
+
+}
+
+  .gameBoard {
+        width: 90%;
+        box-shadow: none;
+
+
+    .activePokemon {
+        
+
+        .choosePokemon{
+            padding: 0;
+            flex-direction: column;
+
+
+            .pokemonButtonsDiv {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+
+                
+                .pokemonButton {
+                    padding: 0;
+                    flex-grow: 0;
+
+                }
+            }
+           
+            
+        }
+
+        .playersPokemon, .computerPokemon {
+            flex-direction: column;
+
+            
+    
+            
+    
+            .cpusPokemonInfo, .playersPokemonInfo {
+                width: auto;
+    
+                .healthBar {
+                    width: 95%;
+                    height: 10px;
+                }
+                
+                .nameInfo {
+                    display: flex;
+                }
+            }
+        }
+    
+        .playersPokemon {
+    
+            .playerBattlingPokemon {
+                align-self: start;
+                margin-left: 0;
+
+            }
+        }
+    
+        .computerPokemon {
+    
+            .cpuBattlingPokemon {
+                align-self: end;
+                margin: 40% 5% 0 0;
+                width: auto;
+                min-width: 0;
+
+               
+            }
+    
+    
+        }
+
+        
+    }
+
+    .options {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .moves {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+
+            .moveButton {
+                font-size: 0.5rem;
+                padding: 5px 5px;
+
+                .moveName {
+                    color: #4172A8;
+                }
+
+                div{
+                    display: flex;
+                    justify-content: space-between;
+                }
+            
+                &:hover, .moveButton:focus {
+                    box-shadow: 0 0 0 5px rgb(197, 26, 26);
+                }
+            }
+            
+            .moveButton, .disabledButton {
+                width: calc(50% - 10px);
+            }
+            
+            
+            
+            
+        }
+
+        .other {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            width: 100%;
+
+            .change {
+                padding: 20px 0px;
+            }
+            
+        }
+
+        
+    }
+    
+}
+
+
+}
