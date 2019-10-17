@@ -755,7 +755,10 @@ button:hover, input[type="submit"]:hover {
         flex-wrap: wrap;
         -webkit-box-pack: center;
         -ms-flex-pack: center;
-        justify-content: center; }
+        justify-content: center;
+        -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1; }
         .gameBoard .activePokemon .choosePokemon .pokemonButtonsDiv .pokemonButton {
           width: calc(30% - 20px);
           background-color: rgba(253, 253, 253, 0.575);
@@ -995,7 +998,10 @@ button:hover, input[type="submit"]:hover {
         flex-wrap: wrap;
         -webkit-box-pack: center;
         -ms-flex-pack: center;
-        justify-content: center; }
+        justify-content: center;
+        -webkit-box-flex: 0;
+        -ms-flex-positive: 0;
+        flex-grow: 0; }
         .gameBoard .activePokemon .choosePokemon .pokemonButtonsDiv .pokemonButton {
           padding: 0;
           -webkit-box-flex: 0;

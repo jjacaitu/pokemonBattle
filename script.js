@@ -51,15 +51,12 @@ pokemonApp.init = () => {
 
     
 
-  console.log(pokemonApp.playerPokemons);
-
-  console.log(pokemonApp.vsPokemons);
 
 //   Call the method to get from the api the effectiveness of each type against the others and store them.
 
   pokemonApp.generateEffectivenessData();
 
-  console.log(pokemonApp.typesEffectiveness);
+
 }
 
 // Async Method to get the information of a random pokemon from the api. The information includes name, stats, possible moves and images from front and back.
@@ -242,7 +239,7 @@ pokemonApp.getFourRandomMoves = function (pokemonGroup,pokemonIndex){
         
         // alert("It seems all the pokemon are either recovering or in battle, please reload the page and try again!");
         // location.reload();
-        console.log("One");
+        // console.log("One");
 
         if(pokemonGroup === pokemonApp.vsPokemons){
             pokemonGroup.splice(pokemonIndex,1);
@@ -302,7 +299,7 @@ pokemonApp.startClick = $("form").on("submit",(event)=>{
 pokemonApp.choosePokemonClick = $(".choosePokemon").on("click",".pokemonButton",function(){
     $(".choosePokemon").fadeOut();
 
-    console.log(pokemonApp.checkUndefined());
+
 
     
     // Conditional to check if it is not the first time choosing pokemon.
