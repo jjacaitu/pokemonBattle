@@ -85,7 +85,7 @@ button:hover, input[type="submit"]:hover {
 
     img {
         min-width: 100px;
-        max-width: 200px;
+        max-width: 150px;
     }
 
 
@@ -97,7 +97,7 @@ button:hover, input[type="submit"]:hover {
 
     .introduction{
         width: 80%;
-        text-align: center;
+        text-align: justify;
         
         animation: text-focus-in  1.5s cubic-bezier(0.215, 0.610, 0.355, 1.000) 1s both;
         display: flex;

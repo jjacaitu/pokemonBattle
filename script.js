@@ -239,8 +239,18 @@ pokemonApp.getFourRandomMoves = function (pokemonGroup,pokemonIndex){
     // To ty to avoid that the player recieves a pokemon with no moves like Ditto or magickarp we check if the moves available are less than 4 an if it is the case then we ask the player to reload the page.
 
     if(moves_list.length < 4 || possibleMoves.length < 4){
-        alert("It seems all the pokemon are either recovering or in battle, please reload the page and try again!");
-        location.reload();
+        
+        // alert("It seems all the pokemon are either recovering or in battle, please reload the page and try again!");
+        // location.reload();
+        console.log("One");
+
+        if(pokemonGroup === pokemonApp.vsPokemons){
+            pokemonGroup.splice(pokemonIndex,1);
+            pokemonGroup.push(pokemonApp.getRandomPokemon(pokemonGroup,pokemonApp.cpuPokemonMoves,pokemonApp.getRandomNumber(600),pokemonApp.difficulty));
+        }else{
+            pokemonGroup.splice(pokemonIndex,1);
+            pokemonGroup.push(pokemonApp.getRandomPokemon(pokemonGroup,pokemonApp.playerMovesToCheck,pokemonApp.getRandomNumber(600),1));
+        }
         
         
     }else{
@@ -291,6 +301,8 @@ pokemonApp.startClick = $("form").on("submit",(event)=>{
 
 pokemonApp.choosePokemonClick = $(".choosePokemon").on("click",".pokemonButton",function(){
     $(".choosePokemon").fadeOut();
+
+    console.log(pokemonApp.checkUndefined());
 
     
     // Conditional to check if it is not the first time choosing pokemon.
@@ -456,7 +468,7 @@ pokemonApp.makeAlert = (message) => {
 
 pokemonApp.attack = (attackingPokemon,move,defendingPokemon,moveIndex) => {
 
-    // alert(`${attackingPokemon.name} just used ${move.name}`);
+    
     pokemonApp.makeAlert(`${attackingPokemon.name.toUpperCase()} used ${move.name.toUpperCase()}`);
 
     const damageDone = pokemonApp.calculateDamage(attackingPokemon,move,defendingPokemon);
@@ -731,7 +743,7 @@ pokemonApp.changeCpuPokemon = (inGame = false)=>{
     $(".cpuBattlingPokemon").remove();
 
     if(pokemonApp.vsPokemons.length === 0){
-        // alert("The pokemon master ran out of pokemons! you win!");
+        
         setTimeout(() => {
             $(".final_message p").text("The pokemon master ran out of pokemons! YOU WIN! You are the new Pokemon Master!");
             $(".reload").text("PLAY AGAIN");
@@ -820,16 +832,19 @@ pokemonApp.playerPokeballAnimation = () => {
 // Method to check if there is a pokemon undefined after the fetch calls
 
 pokemonApp.checkUndefined = () => {
+    const foundUndefined = false;
     pokemonApp.vsPokemons.forEach((pokemon)=>{
         if(pokemon.name === undefined){
-            return true;
+            foundUndefined = true;
         }
     });
     pokemonApp.playerPokemons.forEach((pokemon)=>{
         if(pokemon.name === undefined){
-            return true;
+            foundUndefined = true;
         }
-    })
+    });
+
+    return foundUndefined;
 }
 
 
@@ -849,6 +864,8 @@ pokemonApp.cpuPokeballAnimation = () => {
         $(".cpuPokeballAnimation").remove();
     }, 1000);
 }
+
+// document ready function to initialize the app
 
 $(function(){
     pokemonApp.init();
