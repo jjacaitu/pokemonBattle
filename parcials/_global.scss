@@ -302,6 +302,11 @@ button:hover, input[type="submit"]:hover {
                 
                 .nameInfo {
                     display: flex;
+
+                    img {
+                        width: 20px;
+                        height: 20px;
+                    }
                 }
             }
         }
