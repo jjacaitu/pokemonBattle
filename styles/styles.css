@@ -600,7 +600,8 @@ button:hover, input[type="submit"]:hover {
   -webkit-animation: bg-pan-right 8s infinite;
   animation: bg-pan-right 8s infinite; }
   .intro img {
-    min-width: 100px; }
+    min-width: 100px;
+    max-width: 250px; }
   .intro .logo {
     max-width: 800px;
     width: 40%;
