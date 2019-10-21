@@ -92,12 +92,19 @@ button:hover, input[type="submit"]:hover {
         max-width: 150px;
     }
 
+    h1{
 
-    .logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .logo {
         max-width: 800px;
         width: 40%;
         animation: slide-in-elliptic-top-fwd  1 forwards ease-in 1s;
     }
+    }
+    
 
     .introduction{
         width: 80%;

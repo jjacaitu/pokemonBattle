@@ -560,6 +560,8 @@ body {
     .loading div img {
       max-width: 200px;
       margin: 0 20px; }
+    .loading div p {
+      font-size: 1.5rem; }
 
 button, input[type="submit"] {
   padding: 10px 20px; }
@@ -602,11 +604,21 @@ button:hover, input[type="submit"]:hover {
   .intro img {
     min-width: 100px;
     max-width: 150px; }
-  .intro .logo {
-    max-width: 800px;
-    width: 40%;
-    -webkit-animation: slide-in-elliptic-top-fwd  1 forwards ease-in 1s;
-    animation: slide-in-elliptic-top-fwd  1 forwards ease-in 1s; }
+  .intro h1 {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center; }
+    .intro h1 .logo {
+      max-width: 800px;
+      width: 40%;
+      -webkit-animation: slide-in-elliptic-top-fwd  1 forwards ease-in 1s;
+      animation: slide-in-elliptic-top-fwd  1 forwards ease-in 1s; }
   .intro .introduction {
     width: 80%;
     text-align: justify;
