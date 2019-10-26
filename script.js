@@ -244,9 +244,11 @@ pokemonApp.getFourRandomMoves = function (pokemonGroup,pokemonIndex){
         if(pokemonGroup === pokemonApp.vsPokemons){
             pokemonGroup.splice(pokemonIndex,1);
             pokemonGroup.push(pokemonApp.getRandomPokemon(pokemonGroup,pokemonApp.cpuPokemonMoves,pokemonApp.getRandomNumber(600),pokemonApp.difficulty));
+            pokemonApp.cpuPokemonMoves.splice(pokemonIndex,1);
         }else{
             pokemonGroup.splice(pokemonIndex,1);
             pokemonGroup.push(pokemonApp.getRandomPokemon(pokemonGroup,pokemonApp.playerMovesToCheck,pokemonApp.getRandomNumber(600),1));
+            pokemonApp.playerMovesToCheck.splice(pokemonIndex,1);
         }
         
         
