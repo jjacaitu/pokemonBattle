@@ -1,50 +1,72 @@
 
+// Variable timer defined to store a tieSetOut to reload the page and alert the user in case of having a problem with the information of the api.
 
 let timer;
 
+// define the application object
+
 pokemonApp = {};
 
-
-
+// setting the initial status of the app
 pokemonApp.init = () => {
    
+    // set the click event for the reload click
+    
     $(".reload").on("click",()=>{
         
         location.reload();
     })
 
+    // Initializing properties of the game
+
+    // Property to store the pokemons given to the player
     pokemonApp.playerPokemons = [];
 
+    // Property to store the pokemons given to the CPU (pokemon master).
     pokemonApp.vsPokemons = []
+
+
+    // Properties to store the amount of moves each pokemon has available. This is used to check later if the loop has checked all the moves to know when to start seleting the  random moves for th pokemon.
 
     pokemonApp.playerMovesToCheck = [];
 
     pokemonApp.vsMovesToCheck = [];
 
+    // Property to store the index of the cpu active pokemon.
+
     pokemonApp.cpuActivePokemonIndex = undefined;
+
+    // Property to store how effective a type is vs another type, used to calculate the damage of each move when used.
 
     pokemonApp.typesEffectiveness = {};
 
+    // Property to track how many pokemons the player has left.
     pokemonApp.playerRemainingPokemon = 0;
 
+
+    // Initialize and bind the click events for the start button, for the change pokemon button.
     pokemonApp.startClick;
     pokemonApp.choosePokemonClick;
     pokemonApp.choosePokemonButtonClick;
 
     
 
-  console.log(pokemonApp.playerPokemons);
 
-  console.log(pokemonApp.vsPokemons);
+//   Call the method to get from the api the effectiveness of each type against the others and store them.
 
   pokemonApp.generateEffectivenessData();
 
-  console.log(pokemonApp.typesEffectiveness);
+
 }
+
+// Async Method to get the information of a random pokemon from the api. The information includes name, stats, possible moves and images from front and back.
 
 pokemonApp.getRandomPokemon = async function (pokemonGroup,movesToCheck,randomNumber,handicap){
 
     try{
+
+        // create the properties of each pokemon, where selectedMoves will store the 4 random moves that will be available for the player or cpu and possible moves will be all the moves that eachpokemon could possibly have which will be used to select the 4 moves that will be available.
+
         pokemonGroup.push({
             stats: {},
             type: [],
@@ -56,6 +78,8 @@ pokemonApp.getRandomPokemon = async function (pokemonGroup,movesToCheck,randomNu
         movesToCheck.push(1);
         
         const pokemonIndex = pokemonGroup.length - 1;
+
+        // The data is taken from the api and stores in the respective property or variable.
     
         const url = `https://pokeapi.co/api/v2/pokemon/${randomNumber}`;
     
@@ -99,6 +123,8 @@ pokemonApp.getRandomPokemon = async function (pokemonGroup,movesToCheck,randomNu
                 url : move.move.url,
                 
             });
+
+            // For each move we get additional information with another ajax call, to get the stats of the moves and type.
             
             pokemonApp.getPokemonMovesInfo(pokemonGroup,movesToCheck,move.move.url,pokemonIndex,index);
 
@@ -112,6 +138,8 @@ pokemonApp.getRandomPokemon = async function (pokemonGroup,movesToCheck,randomNu
 
 }
 
+// After finding a problem ith the urls givven by the api this method was defined to clean the url getting rid of the last "/".
+
 pokemonApp.takeOutLastSlashInUrl = (url) => {
      const splittedUrl = url.split("");
      splittedUrl.splice(splittedUrl.length - 1,1);
@@ -119,6 +147,8 @@ pokemonApp.takeOutLastSlashInUrl = (url) => {
 
      return newUrl;
 }
+
+// Thi is the method used to get the aditional information of each move the pokemon can possibly have.
 
 pokemonApp.getPokemonMovesInfo = async function (pokemonGroup,movesToCheck,url,pokemonIndex, index){
 
@@ -132,6 +162,7 @@ pokemonApp.getPokemonMovesInfo = async function (pokemonGroup,movesToCheck,url,p
 
         const moveBeingAdded = pokemonGroup[pokemonIndex].possibleMoves;
 
+        // We make sure to only attach aditional information to moves that make damage to the oponent to avoid getting moves like leer that would only affect stats.
 
         if(moveInformationRecieved.accuracy !== null && moveInformationRecieved.power !== null){
             moveBeingAdded[index].accuracy = moveInformationRecieved.accuracy;
@@ -144,11 +175,15 @@ pokemonApp.getPokemonMovesInfo = async function (pokemonGroup,movesToCheck,url,p
         } else {
             movesToCheck[pokemonIndex] += 1; 
         }
+        // When the information of the last possible move has been recieved then we call the method to select 4 random moves of all the possible ones.
 
         if(movesToCheck[pokemonIndex] === moveBeingAdded.length){
             pokemonApp.getFourRandomMoves(pokemonGroup,pokemonIndex);
             pokemonGroup[pokemonIndex].ready = true;
             const numberOfPokemons = pokemonApp.length;
+
+            // We check if both the cpu and the player has finished getting the moves for each of the pokemons available and the remove the loading and create the choose Pokemon div.
+
             if(pokemonApp.playerPokemons[numberOfPokemons - 1].ready && pokemonApp.vsPokemons[numberOfPokemons - 1].ready){
                 setTimeout(() => {
                     clearTimeout(timer);
@@ -158,6 +193,13 @@ pokemonApp.getPokemonMovesInfo = async function (pokemonGroup,movesToCheck,url,p
                         $(".choosePokemon .pokemonButtonsDiv").append(`<button class="pokemonButton active ${pokemon.name}_${index}" value="${index}"><img src="${pokemon.image_front}" alt="${pokemon.name}"></button>`);
                         $(".start").fadeOut();
                     })
+
+                    // We check if there is a pokemon undefined in order to ask th player to reload the page.
+
+                    if(pokemonApp.checkUndefined()){
+                        alert("It seems all the pokemon are either recovering or in battle, please reload the page and try again!");
+                        location.reload();
+                    }
 
                     $(".gameBoard").fadeIn(); 
                 }, 2000);
@@ -170,24 +212,42 @@ pokemonApp.getPokemonMovesInfo = async function (pokemonGroup,movesToCheck,url,p
 
 }
 
+
+// Method to get a random number.
 pokemonApp.getRandomNumber = function (maxNumber){
     return Math.floor(Math.random() * maxNumber);
 }
 
+
+// Method to get 4 random moves from all the possible. 
 pokemonApp.getFourRandomMoves = function (pokemonGroup,pokemonIndex){
 
     const moves_list = [];
     const possibleMoves = pokemonGroup[pokemonIndex].possibleMoves;
     const selectedMoves = pokemonGroup[pokemonIndex].selectedMoves;
+
+    // First we make sure we are not getting moves that have no information avaliable by checking if the accuracy is undefined
     for(let i = 0; i < possibleMoves.length; i++){
         if(possibleMoves[i].accuracy !== undefined){
             moves_list.push(i);
         }
     }
 
+    // To ty to avoid that the player recieves a pokemon with no moves like Ditto or magickarp we check if the moves available are less than 4 an if it is the case then we ask the player to reload the page.
+
     if(moves_list.length < 4 || possibleMoves.length < 4){
-        alert("It seems all the pokemon are either recovering or in battle, please reload the page and try again!");
-        location.reload();
+        
+        // alert("It seems all the pokemon are either recovering or in battle, please reload the page and try again!");
+        // location.reload();
+        // console.log("One");
+
+        if(pokemonGroup === pokemonApp.vsPokemons){
+            pokemonGroup.splice(pokemonIndex,1);
+            pokemonGroup.push(pokemonApp.getRandomPokemon(pokemonGroup,pokemonApp.cpuPokemonMoves,pokemonApp.getRandomNumber(600),pokemonApp.difficulty));
+        }else{
+            pokemonGroup.splice(pokemonIndex,1);
+            pokemonGroup.push(pokemonApp.getRandomPokemon(pokemonGroup,pokemonApp.playerMovesToCheck,pokemonApp.getRandomNumber(600),1));
+        }
         
         
     }else{
@@ -202,17 +262,26 @@ pokemonApp.getFourRandomMoves = function (pokemonGroup,pokemonIndex){
     
 }
 
+// Method which bind the click event to the start button.
+
 pokemonApp.startClick = $("form").on("submit",(event)=>{
     event.preventDefault();
+
+    // We set a timer with 10 seconds in case for any reason the loading page never gets removed.
+
     timer = setTimeout(() => {
         alert("It seems all the pokemon are either recovering or in battle, please reload the page and try again!");
         location.reload();
     }, 10000);
+
+    // We store the difficulty selection and the length of the game selected by the payer to generate the game.
+
     pokemonApp.difficulty = $(".difficulty_div input[type='radio']:checked").val();
     pokemonApp.length = $(".length_div input[type='radio']:checked").val();
     $(".intro").fadeOut();
 
     
+    // Depending on the above the game is generated.
 
     for(i=0;i<pokemonApp.length;i++){
         pokemonApp.getRandomPokemon(pokemonApp.playerPokemons,pokemonApp.playerMovesToCheck,pokemonApp.getRandomNumber(600),1);
@@ -225,16 +294,20 @@ pokemonApp.startClick = $("form").on("submit",(event)=>{
     
 });
 
+// Method that binds and create the click event for each pokemon button. Disabling the event for the button referencing the active pokemon and generating the move buttons for the pokemon the player chose.
+
 pokemonApp.choosePokemonClick = $(".choosePokemon").on("click",".pokemonButton",function(){
     $(".choosePokemon").fadeOut();
 
-    
 
+
+    
+    // Conditional to check if it is not the first time choosing pokemon.
     if(pokemonApp.activePlayersPokemonIndex != undefined){
         
         const previousPokemon = pokemonApp.playerPokemons[pokemonApp.activePlayersPokemonIndex];
 
-        $(`.${previousPokemon.name}`).removeAttr("disabled").addClass("active");
+        $(`.${previousPokemon.name}_${pokemonApp.activePlayersPokemonIndex}`).removeAttr("disabled").addClass("active");
     }
    
     
@@ -245,13 +318,16 @@ pokemonApp.choosePokemonClick = $(".choosePokemon").on("click",".pokemonButton",
 
     $(".moves").empty();
 
+    // Creation of each move button depending on the selected pokemon.
+
     pokemonChosen.selectedMoves.forEach((move,index)=>{
         if(move.pp > 0){
-            $(".moves").append(`<button class="moveButton moveButton_${move.name}" value="${index}"><p>${move.name.toUpperCase()}</p><p>TYPE: ${move.type.toUpperCase()}<div><p class="pp"> PP:${move.pp}</p><p> POWER:${move.power}</p></div></button>`);
+            $(".moves").append(`<button class="moveButton moveButton_${move.name}" value="${index}"><p class="moveName">${move.name.toUpperCase()}</p><p>TYPE: ${move.type.toUpperCase()}<div><p class="pp"> PP:${move.pp}</p><p> POWER:${move.power}</p></div></button>`);
         }else{
             $(".moves").append(`<button class="disabledButton moveButton_${move.name}" value="${index}" disabled><p>${move.name.toUpperCase()}</p><p>TYPE: ${move.type.toUpperCase()}<div><p class="pp"> PP:${move.pp}</p><p> POWER:${move.power}</p></div></button>`);
         }
     
+        // Binding of the click event for each move button.
 
         $(`.moveButton_${move.name}`).on("click",function()
         {   
@@ -269,9 +345,11 @@ pokemonApp.choosePokemonClick = $(".choosePokemon").on("click",".pokemonButton",
         })
     });
 
+    // Conditional to check if its the cpu already has chosen a pokemon or not. If it has not the it means that the battle is just starting
 
     if(pokemonApp.cpuActivePokemonIndex === undefined){
         
+        // We create the health bar and information for each player
         pokemonApp.playerPokemons.forEach((pokemon, index)=>{
             $(".playersPokemonInfo .nameInfo").append(`<img class='pokeball_${index + 1}' src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png' alt='pokeball'>`);
         })
@@ -284,6 +362,8 @@ pokemonApp.choosePokemonClick = $(".choosePokemon").on("click",".pokemonButton",
 
         $(".cpusPokemonInfo").fadeIn();
 
+        // Gives the option to close the choose pokemon section the next time it opens making sure that the first timethe player have to select one.
+
         $(".cancel").fadeIn();
 
         $(".cancel").on("click",()=>{
@@ -294,6 +374,7 @@ pokemonApp.choosePokemonClick = $(".choosePokemon").on("click",".pokemonButton",
         
         $(".other").append("<button class='change' disabled>Change Pokemon</button>");
         pokemonApp.changeCpuPokemon();
+        // If not the in means that the player changed the pokemon in the middle of a battle which makes it possible for the cpu to attack.
 
     }else if(pokemonApp.activePlayersPokemonIndex !== undefined){
         setTimeout(() => {
@@ -301,6 +382,8 @@ pokemonApp.choosePokemonClick = $(".choosePokemon").on("click",".pokemonButton",
         }, 2000);
         
     }
+
+
     $(".playerBattlingPokemon").remove();
 
     pokemonApp.activePlayersPokemonIndex = $(this).val();
@@ -310,6 +393,7 @@ pokemonApp.choosePokemonClick = $(".choosePokemon").on("click",".pokemonButton",
         $(".playersPokemonInfo").before(`<img class="playerBattlingPokemon" src="${pokemonChosen.image_back}" alt="${pokemonChosen.name}">`);
     }, 1500);
      
+    // The following updates the health bar of the pokemon and selects the color depending on the amount of health remaining.
 
     const remainingHpPorcentage = Math.ceil((pokemonChosen.stats.hp/pokemonChosen.stats.fullHp) * 100);
 
@@ -329,6 +413,8 @@ pokemonApp.choosePokemonClick = $(".choosePokemon").on("click",".pokemonButton",
 
 });
 
+
+// Method that makes the cpu decides if it attacks or it changes the pokemon.
 pokemonApp.cpuRandomAttack = () => {
 
     const cpuPokemon = pokemonApp.vsPokemons[pokemonApp.cpuActivePokemonIndex];
@@ -338,6 +424,8 @@ pokemonApp.cpuRandomAttack = () => {
     const randomNumber = pokemonApp.getRandomNumber(10);
 
     const defendingPokemon = pokemonApp.playerPokemons[pokemonApp.activePlayersPokemonIndex]; 
+
+    // The cpu will only change the pokemon if the players health is higher than his, if it has more than one pokemon available and only in 1/10th of the times.
 
     if(cpuPokemon.stats.hp < defendingPokemon.stats.hp && randomNumber === 9 && pokemonApp.vsPokemons.length >1){
         pokemonApp.changeCpuPokemon(true);
@@ -357,9 +445,13 @@ pokemonApp.cpuRandomAttack = () => {
 
 }
 
+// Binds and creates the cick event for the button that lets the player change of pokemon.
+
 pokemonApp.choosePokemonButtonClick = $(".other").on("click",".change",()=>{
     $(".choosePokemon").fadeIn();
 })
+
+// Method that creates the messages that appear in each turn and move.
 
 pokemonApp.makeAlert = (message) => {
     $(".alerts").fadeIn();
@@ -369,13 +461,16 @@ pokemonApp.makeAlert = (message) => {
     }, 1000);
 }
 
+// Method that lets a pokemon attack aother pokemon. Inside the calculate damage method is called to calculate the damage based in stats, types and moves.
 
 pokemonApp.attack = (attackingPokemon,move,defendingPokemon,moveIndex) => {
 
-    // alert(`${attackingPokemon.name} just used ${move.name}`);
+    
     pokemonApp.makeAlert(`${attackingPokemon.name.toUpperCase()} used ${move.name.toUpperCase()}`);
 
     const damageDone = pokemonApp.calculateDamage(attackingPokemon,move,defendingPokemon);
+
+    // Here we define if the moves was effective or not.
 
     if(damageDone > 0) {
         if(defendingPokemon === pokemonApp.playerPokemons[pokemonApp.activePlayersPokemonIndex]){
@@ -408,6 +503,9 @@ pokemonApp.attack = (attackingPokemon,move,defendingPokemon,moveIndex) => {
         }, 2000);
     }
     
+
+    // The pp is checked in order to see if the move can be used. If it can be used the it affects the health of the pokemon and checks if the pokemon fainte or not. It also checks in the case the pokemon faited if the player or cpu have any other pokemon left to know if the battle has ended and declare a winner.
+
     if(move.pp !== 0 ){
         move.pp -= 1;
         defendingPokemon.stats.hp -= damageDone;
@@ -518,6 +616,8 @@ pokemonApp.attack = (attackingPokemon,move,defendingPokemon,moveIndex) => {
 
 }
 
+// Method to calculate damage based on stats, types and effectiveness
+
 pokemonApp.calculateDamage = (atackingPokemon,move,defendingPokemon) => {
     let defenseStat;
     let attackStat;
@@ -535,6 +635,9 @@ pokemonApp.calculateDamage = (atackingPokemon,move,defendingPokemon) => {
 
     return Math.ceil(((((2 * power * (attackStat/defenseStat))/50)+2))*effective);
 }
+
+
+// Method to check the effectivness of the move against the type of the defending pokemon.
 
 pokemonApp.checkEffectiveness = (move,defendingPokemon)=>{
     const moveType = move.type;
@@ -579,6 +682,9 @@ pokemonApp.checkEffectiveness = (move,defendingPokemon)=>{
 
     return effectivenessNumber;
 }
+
+
+// Method that makes the fetch call in order to get the effectivness of each type of move or pokemon.
 
 pokemonApp.generateEffectivenessData = async () => {
     const availableTypesUrl = "https://pokeapi.co/api/v2/type";
@@ -628,12 +734,13 @@ pokemonApp.getEffectivenessForType = async (typeUrl,typeName) => {
 
 
 
+// Method that lets the cpu change his battling pokemon for another one. This happens when the cpu decides to do it or in the case that the active pokemon has fainted.
 
 pokemonApp.changeCpuPokemon = (inGame = false)=>{
     $(".cpuBattlingPokemon").remove();
 
     if(pokemonApp.vsPokemons.length === 0){
-        // alert("The pokemon master ran out of pokemons! you win!");
+        
         setTimeout(() => {
             $(".final_message p").text("The pokemon master ran out of pokemons! YOU WIN! You are the new Pokemon Master!");
             $(".reload").text("PLAY AGAIN");
@@ -698,6 +805,9 @@ pokemonApp.changeCpuPokemon = (inGame = false)=>{
     
 }
 
+
+// Method that makes the animation of the player calling a new pokemon happen.
+
 pokemonApp.playerPokeballAnimation = () => {
     $(".playersPokemon").append(`<img class="playerPokeballAnimation"src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png">`);
 
@@ -716,6 +826,27 @@ pokemonApp.playerPokeballAnimation = () => {
 
 }
 
+// Method to check if there is a pokemon undefined after the fetch calls
+
+pokemonApp.checkUndefined = () => {
+    const foundUndefined = false;
+    pokemonApp.vsPokemons.forEach((pokemon)=>{
+        if(pokemon.name === undefined){
+            foundUndefined = true;
+        }
+    });
+    pokemonApp.playerPokemons.forEach((pokemon)=>{
+        if(pokemon.name === undefined){
+            foundUndefined = true;
+        }
+    });
+
+    return foundUndefined;
+}
+
+
+// Method that makes the animation of the cpu calling a new pokemon happen.
+
 pokemonApp.cpuPokeballAnimation = () => {
     $(".computerPokemon").append(`<img class="cpuPokeballAnimation" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png">`);
 
@@ -730,6 +861,8 @@ pokemonApp.cpuPokeballAnimation = () => {
         $(".cpuPokeballAnimation").remove();
     }, 1000);
 }
+
+// document ready function to initialize the app
 
 $(function(){
     pokemonApp.init();
