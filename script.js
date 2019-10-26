@@ -207,7 +207,8 @@ pokemonApp.getPokemonMovesInfo = async function (pokemonGroup,movesToCheck,url,p
                
         }
     } catch(e){
-        console.log(e);
+        alert("It seems all the pokemon are either recovering or in battle, please reload the page and try again!");
+        location.reload();
     }
 
 }
