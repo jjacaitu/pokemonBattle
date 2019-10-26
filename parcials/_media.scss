@@ -95,6 +95,7 @@
                 .healthBar {
                     width: 95%;
                     height: 10px;
+                    
                 }
                 
                 .nameInfo {
@@ -104,23 +105,39 @@
         }
     
         .playersPokemon {
+
+            display: block;
     
             .playerBattlingPokemon {
                 align-self: start;
                 margin-left: 0;
+                float: left;
+                height: auto;
+                margin-top: 50px;
 
+            }
+
+            .playersPokemonInfo {
+                float: right;
             }
         }
     
         .computerPokemon {
+
+            display: block;
     
             .cpuBattlingPokemon {
                 align-self: end;
                 margin: 40% 5% 0 0;
                 width: auto;
                 min-width: 0;
+                float: right;
 
                
+            }
+
+            .cpusPokemonInfo {
+                float: left;
             }
     
     

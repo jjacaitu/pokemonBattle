@@ -1034,18 +1034,30 @@ button:hover, input[type="submit"]:hover {
           display: -webkit-box;
           display: -ms-flexbox;
           display: flex; }
-    .gameBoard .activePokemon .playersPokemon .playerBattlingPokemon {
-      -ms-flex-item-align: start;
-      -ms-grid-row-align: start;
-      align-self: start;
-      margin-left: 0; }
-    .gameBoard .activePokemon .computerPokemon .cpuBattlingPokemon {
-      -ms-flex-item-align: end;
-      -ms-grid-row-align: end;
-      align-self: end;
-      margin: 40% 5% 0 0;
-      width: auto;
-      min-width: 0; }
+    .gameBoard .activePokemon .playersPokemon {
+      display: block; }
+      .gameBoard .activePokemon .playersPokemon .playerBattlingPokemon {
+        -ms-flex-item-align: start;
+        -ms-grid-row-align: start;
+        align-self: start;
+        margin-left: 0;
+        float: left;
+        height: auto;
+        margin-top: 50px; }
+      .gameBoard .activePokemon .playersPokemon .playersPokemonInfo {
+        float: right; }
+    .gameBoard .activePokemon .computerPokemon {
+      display: block; }
+      .gameBoard .activePokemon .computerPokemon .cpuBattlingPokemon {
+        -ms-flex-item-align: end;
+        -ms-grid-row-align: end;
+        align-self: end;
+        margin: 40% 5% 0 0;
+        width: auto;
+        min-width: 0;
+        float: right; }
+      .gameBoard .activePokemon .computerPokemon .cpusPokemonInfo {
+        float: left; }
     .gameBoard .options {
       display: -webkit-box;
       display: -ms-flexbox;
