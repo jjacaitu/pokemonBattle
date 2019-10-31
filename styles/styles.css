@@ -979,11 +979,13 @@ button:hover, input[type="submit"]:hover {
     font-size: 0.5rem; }
   .intro .logo {
     width: 80%; }
+  .intro img {
+    max-width: 100px; }
   .intro .introduction {
     font-size: 0.8rem; }
     .intro .introduction p {
       width: 100%; }
-    .intro .introduction p:nth-of-type(2) {
+    .intro .introduction p:nth-of-type(2), .intro .introduction p:nth-of-type(1) {
       display: none; }
     .intro .introduction form input[type=radio] {
       margin: 10px 0px; }
