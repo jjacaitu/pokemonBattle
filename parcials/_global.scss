@@ -1,5 +1,6 @@
 body, button, input {
     font-family: 'Press Start 2P', cursive;
+    
 }
 
 p {
@@ -15,6 +16,7 @@ img {
 body {
     background-image: url(../assets/backgroundBlack.png);
     background-size: contain;
+    
 
     main {
         display: flex;
@@ -73,10 +75,6 @@ button:hover, input[type="submit"]:hover {
 .intro {
     position: absolute;
     top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    height: 100vh;
     background-image: linear-gradient(to top, rgb(211, 208, 58),rgb(255, 234, 0));
     z-index: 2;
     display: flex;

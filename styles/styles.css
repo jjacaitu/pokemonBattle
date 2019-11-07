@@ -575,10 +575,6 @@ button:hover, input[type="submit"]:hover {
 .intro {
   position: absolute;
   top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  height: 100vh;
   background-image: -webkit-gradient(linear, left bottom, left top, from(#d3d03a), to(#ffea00));
   background-image: -webkit-linear-gradient(bottom, #d3d03a, #ffea00);
   background-image: -o-linear-gradient(bottom, #d3d03a, #ffea00);
@@ -971,30 +967,39 @@ button:hover, input[type="submit"]:hover {
   animation: pokeballCpu 1s linear 1; }
 
 @media (max-width: 800px) {
+  .intro .introduction p {
+    font-size: 0.8rem; }
+  .intro .introduction form label {
+    font-size: 0.8rem; }
   .gameBoard {
     width: 80%; } }
 
 @media (max-width: 500px) {
   button, body {
     font-size: 0.5rem; }
-  .intro .logo {
-    width: 80%; }
-  .intro img {
-    max-width: 100px; }
-  .intro .introduction {
-    font-size: 0.8rem; }
-    .intro .introduction p {
-      width: 100%; }
-    .intro .introduction p:nth-of-type(2), .intro .introduction p:nth-of-type(1) {
-      display: none; }
-    .intro .introduction form input[type=radio] {
-      margin: 10px 0px; }
-    .intro .introduction .start {
-      margin-top: 20px;
-      -webkit-animation: jello-horizontal 1.5s both 2.5s;
-      animation: jello-horizontal 1.5s both 2.5s; }
-  .intro footer {
-    font-size: 0.5rem; }
+  .intro {
+    top: initial;
+    border-top: solid 10px #ED0E0E;
+    border-bottom: solid 10px #ED0E0E;
+    padding: 20px 0; }
+    .intro .logo {
+      width: 80%; }
+    .intro img {
+      max-width: 100px; }
+    .intro .introduction {
+      font-size: 0.8rem; }
+      .intro .introduction p {
+        width: 100%; }
+      .intro .introduction p:nth-of-type(2), .intro .introduction p:nth-of-type(1) {
+        display: none; }
+      .intro .introduction form input[type=radio] {
+        margin: 10px 0px; }
+      .intro .introduction .start {
+        margin-top: 20px;
+        -webkit-animation: jello-horizontal 1.5s both 2.5s;
+        animation: jello-horizontal 1.5s both 2.5s; }
+    .intro footer {
+      font-size: 0.5rem; }
   .gameBoard {
     width: 90%;
     -webkit-box-shadow: none;

@@ -238,9 +238,6 @@ pokemonApp.getFourRandomMoves = function (pokemonGroup,pokemonIndex){
 
     if(moves_list.length < 4 || possibleMoves.length < 4){
         
-        // alert("It seems all the pokemon are either recovering or in battle, please reload the page and try again!");
-        // location.reload();
-        // console.log("One");
 
         if(pokemonGroup === pokemonApp.vsPokemons){
             pokemonGroup.splice(pokemonIndex,1);

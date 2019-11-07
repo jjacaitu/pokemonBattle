@@ -1,4 +1,18 @@
 @media (max-width: 800px){
+
+    .intro {
+        .introduction {
+            p {
+                font-size: 0.8rem;
+            }
+
+            form {
+                label {
+                    font-size: 0.8rem;
+                }
+            }
+        }
+    }
     .gameBoard {
         width: 80%;
     }
@@ -12,7 +26,10 @@
 
 
   .intro {
-    
+    top: initial;
+    border-top: solid 10px #ED0E0E;
+    border-bottom: solid 10px #ED0E0E;
+    padding: 20px 0;
 
 
     .logo {
