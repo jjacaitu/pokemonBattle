@@ -3,7 +3,7 @@ body, button, input {
     
 }
 
-p {
+p,h1  {
     margin: 0;
 }
 
@@ -60,7 +60,7 @@ button, input[type="submit"] {
 }
 
 input {
-    margin: 10px 10px;
+    margin: 5px 10px;
 }
 
 
@@ -84,6 +84,7 @@ button:hover, input[type="submit"]:hover {
     color: rgb(78, 71, 71);
     background-position: -50%;
     animation: bg-pan-right 8s infinite;
+    min-height: 100vh;
 
     img {
         min-width: 100px;
@@ -95,17 +96,18 @@ button:hover, input[type="submit"]:hover {
         display: flex;
         justify-content: center;
         align-items: center;
+       
 
         .logo {
-        max-width: 1200px;
-        width: 40%;
+        max-width: 500px;
+        // width: 40%;
         animation: slide-in-elliptic-top-fwd  1 forwards ease-in 1s;
         }
     }
     
 
     .introduction{
-        width: 80%;
+        width: 90%;
         text-align: justify;
         
         animation: text-focus-in  1.5s cubic-bezier(0.215, 0.610, 0.355, 1.000) 1s both;
