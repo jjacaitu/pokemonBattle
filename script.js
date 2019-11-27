@@ -215,8 +215,15 @@ pokemonApp.getPokemonMovesInfo = async function (pokemonGroup,movesToCheck,url,p
 
 
 // Method to get a random number.
-pokemonApp.getRandomNumber = function (maxNumber){
-    return Math.floor(Math.random() * maxNumber);
+pokemonApp.getRandomNumber = function (maxNumber) {
+    const avoidNumbersArray = [325, 202, 129];
+    const random = Math.floor(Math.random() * maxNumber);
+    
+    if (avoidNumbersArray.includes(random)) {
+        pokemonApp.getRandomNumber()
+    } else {
+        return random;
+    }
 }
 
 

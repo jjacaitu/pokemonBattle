@@ -912,7 +912,8 @@ button:hover, input[type="submit"]:hover {
       align-content: center;
       width: 100%; }
       .gameBoard .options .other .change {
-        width: 100%; }
+        width: 100%;
+        min-height: 50px; }
   .gameBoard .alerts {
     position: absolute;
     bottom: 10px;
